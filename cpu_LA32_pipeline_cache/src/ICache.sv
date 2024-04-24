@@ -11,8 +11,6 @@ module icache (
     //和主存的接口
     output reg  [31:0] inst_mem_raddr,
     input  wire [31:0] inst_mem_rdata
-    //output wire inst_mem_we,
-    //output wire [31:0] inst_mem_waddr//ICache无需写IMem
 );
 
   reg valid;
