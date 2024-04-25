@@ -687,21 +687,21 @@ alu u_alu(
     );
 
 /*************************************Hazard Detection Unit*******************************************/
-assign ld_hazard_rj_en = ctrw_WB_wb_sel
+assign ld_hazard_rj_en = ctrm_WB_wb_sel
                        & ( !IDEX_inst_lu12i_w & !IDEX_inst_pcaddu12i & !IDEX_inst_b & !IDEX_inst_bl);
 
-assign ld_hazard_rk_en = ctrw_WB_wb_sel
+assign ld_hazard_rk_en = ctrm_WB_wb_sel
                        & ( IDEX_inst_add_w  | IDEX_inst_sub_w   | IDEX_inst_slt     | IDEX_inst_sltu        | IDEX_inst_nor     | IDEX_inst_and 
                          | IDEX_inst_or     | IDEX_inst_xor     | IDEX_inst_mul_w   | IDEX_inst_sll_w       | IDEX_inst_srl_w   | IDEX_inst_sra_w);
 
-assign ld_hazard_rd_en = ctrw_WB_wb_sel
+assign ld_hazard_rd_en = ctrm_WB_wb_sel
                        & ( IDEX_inst_beq    | IDEX_inst_bne     | IDEX_inst_blt     | IDEX_inst_bge         | IDEX_inst_bltu    | IDEX_inst_bgeu
                          | IDEX_inst_st_w   | IDEX_inst_st_h    | IDEX_inst_st_b);
 
 always @(*) begin
-    if(ld_hazard_rj_en && (MEMWB_wb_dest == IDEX_rf_raddr1)
-    || ld_hazard_rk_en && (MEMWB_wb_dest == IDEX_rf_raddr2)
-    || ld_hazard_rd_en && (MEMWB_wb_dest == IDEX_rf_raddr2))begin
+    if(ld_hazard_rj_en && (EXMEM_wb_dest == IDEX_rf_raddr1)
+    || ld_hazard_rk_en && (EXMEM_wb_dest == IDEX_rf_raddr2)
+    || ld_hazard_rd_en && (EXMEM_wb_dest == IDEX_rf_raddr2))begin
         fStall = 1;
         dStall = 1;
         eFlush = 1;

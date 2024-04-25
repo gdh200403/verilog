@@ -716,9 +716,9 @@ assign ld_hazard_rd_en = ctrm_WB_wb_sel
                          | IDEX_inst_st_w   | IDEX_inst_st_h    | IDEX_inst_st_b);
 
 always @(*) begin
-    if(ld_hazard_rj_en && (MEMWB_wb_dest == IDEX_rf_raddr1)
-    || ld_hazard_rk_en && (MEMWB_wb_dest == IDEX_rf_raddr2)
-    || ld_hazard_rd_en && (MEMWB_wb_dest == IDEX_rf_raddr2))begin
+    if(ld_hazard_rj_en && (EXMEM_wb_dest == IDEX_rf_raddr1)
+    || ld_hazard_rk_en && (EXMEM_wb_dest == IDEX_rf_raddr2)
+    || ld_hazard_rd_en && (EXMEM_wb_dest == IDEX_rf_raddr2))begin
         fStall = 1;
         dStall = 1;
         eFlush = 1;
